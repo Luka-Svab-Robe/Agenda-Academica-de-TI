@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale-1.0">
+    <title>Especificação de Software - Agenda Acadêmica de TI</title>
+    <!-- Carregando o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Fonte Inter (padrão do Tailwind) */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Estilo para a aba ativa */
+        .tab-button.active {
+            border-bottom-color: #3b82f6; /* blue-500 */
+            color: #3b82f6;
+            font-weight: 500;
+        }
+        /* Ocultar seções por padrão */
+        .content-section {
+            display: none;
+        }
+        /* Mostrar a primeira seção por padrão */
+        #introducao {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="max-w-6xl mx-auto p-4 sm:p-8">
+        <!-- Cabeçalho do Projeto -->
+        <header class="bg-blue-600 text-white p-6 rounded-lg shadow-lg text-center mb-8">
+            <h1 class="text-3xl font-bold">Especificação de Software</h1>
+            <h2 class="text-xl mt-2">Projeto: Agenda Acadêmica para Alunos de TI</h2>
+        </header>
+
+        <!-- Navegação em Abas -->
+        <nav class="flex flex-wrap border-b-2 border-gray-300 mb-6 bg-white rounded-t-lg shadow-sm">
+            <button class="tab-button py-3 px-5 border-b-2 border-transparent text-gray-600 hover:text-blue-500" onclick="showSection('introducao')">Introdução</button>
+            <button class="tab-button py-3 px-5 border-b-2 border-transparent text-gray-600 hover:text-blue-500" onclick="showSection('requisitos')">Requisitos</button>
+            <button class="tab-button py-3 px-5 border-b-2 border-transparent text-gray-600 hover:text-blue-500" onclick="showSection('prototipos')">Protótipos</button>
+            <button class="tab-button py-3 px-5 border-b-2 border-transparent text-gray-600 hover:text-blue-500" onclick="showSection('modelagem')">Modelagem de Dados</button>
+            <button class="tab-button py-3 px-5 border-b-2 border-transparent text-gray-600 hover:text-blue-500" onclick="showSection('referencias')">Referências</button>
+        </nav>
+
+        <!-- Conteúdo das Seções -->
+        <main>
+            <!-- Seção 1: Introdução -->
+            <section id="introducao" class="content-section bg-white p-6 rounded-b-lg rounded-tr-lg shadow-md">
+                <h3 class="text-2xl font-bold text-blue-700 mb-4">1. Introdução</h3>
+                <p class="mb-4">Este documento apresenta a especificação de software para um sistema de "Agenda Acadêmica", focado em alunos de cursos de graduação da área de Tecnologia da Informação. O objetivo é criar uma ferramenta que vá além de uma simples agenda, auxiliando o aluno no gerenciamento de suas disciplinas, atividades e, como diferencial, no cálculo de suas notas e desempenho.</p>
+                <p>Como um projeto de primeiro semestre, o foco está em definir claramente os requisitos e modelar uma solução simples, coesa e funcional. A especificação segue as etapas fundamentais da engenharia de requisitos e modelagem de dados.</p>
+                
+                <div class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-400 text-blue-800 rounded-r-lg">
+                    <p><strong class="font-medium">Diferencial Proposto:</strong> Além de uma agenda de tarefas (provas, trabalhos), o sistema incluirá um módulo de "Cálculo de Média" por disciplina. O aluno poderá lançar as notas obtidas e os pesos de cada avaliação (P1, P2, Trabalhos), e o sistema calculará automaticamente a média parcial e quanto ele precisa na prova final, ajudando no planejamento de estudos.</p>
+                </div>
+            </section>
+
+            <!-- Seção 2: Requisitos -->
+            <section id="requisitos" class="content-section bg-white p-6 rounded-b-lg rounded-tr-lg shadow-md">
+                <h3 class="text-2xl font-bold text-blue-700 mb-4">2. Listagem de Requisitos</h3>
+                
+                <h4 class="text-xl font-semibold text-gray-700 mt-6 mb-3">2.1. Requisitos Funcionais (RF)</h4>
+                <p class="mb-4">Descrevem o que o sistema *deve fazer*.</p>
+                <ul class="list-disc list-inside space-y-2 bg-gray-50 p-4 rounded-lg">
+                    <li><strong>RF01:</strong> O sistema deve permitir que o usuário (aluno) se cadastre e faça login.</li>
+                    <li><strong>RF02:</strong> O sistema deve permitir ao aluno cadastrar suas disciplinas (Ex: "Algoritmos", "Engenharia de Software").</li>
+                    <li><strong>RF03:</strong> O sistema deve permitir ao aluno adicionar atividades a uma disciplina (Ex: "Prova 1", "Trabalho em Grupo").</li>
+                    <li><strong>RF04:</strong> O aluno deve poder definir dados para a atividade, como data de entrega, prioridade (Baixa, Média, Alta) e tipo (Prova, Trabalho, Tarefa).</li>
+                    <li><strong>RF05:</strong> O sistema deve exibir um "Dashboard" com as próximas atividades a vencer.</li>
+                    <li><strong>RF06:</strong> O sistema deve permitir ao aluno marcar uma atividade como "Concluída".</li>
+                    <li><strong>RF07 (Diferencial):</strong> O aluno deve poder definir os pesos das avaliações de uma disciplina (Ex: P1 - peso 40%, P2 - peso 60%).</li>
+                    <li><strong>RF08 (Diferencial):</strong> O aluno deve poder lançar a nota obtida em cada atividade/avaliação.</li>
+                    <li><strong>RF09 (Diferencial):</strong> O sistema deve calcular e exibir a média parcial do aluno na disciplina com base nas notas e pesos.</li>
+                </ul>
+
+                <h4 class="text-xl font-semibold text-gray-700 mt-8 mb-3">2.2. Requisitos Não Funcionais (RNF)</h4>
+                <p class="mb-4">Descrevem *como* o sistema deve ser (qualidades e restrições).</p>
+                <ul class="list-disc list-inside space-y-2 bg-gray-50 p-4 rounded-lg">
+                    <li><strong>RNF01 (Usabilidade):</strong> A interface deve ser simples, intuitiva e fácil de usar por um aluno com conhecimentos básicos de tecnologia.</li>
+                    <li><strong>RNF02 (Plataforma):</strong> O sistema deve funcionar como uma aplicação web, acessível por navegadores modernos em desktops e celulares (Design Responsivo).</li>
+                    <li><strong>RNF03 (Tecnologia):</strong> A aplicação (protótipo) deve ser desenvolvida usando HTML, CSS e JavaScript.</li>
+                    <li><strong>RNF04 (Desempenho):</strong> As telas principais do sistema devem carregar em menos de 3 segundos em uma conexão de internet padrão.</li>
+                    <li><strong>RNF05 (Idioma):</strong> O sistema deve ser totalmente em Português (BR).</li>
+                </ul>
+            </section>
+
+            <!-- Seção 3: Protótipos -->
+            <section id="prototipos" class="content-section bg-white p-6 rounded-b-lg rounded-tr-lg shadow-md">
+                <h3 class="text-2xl font-bold text-blue-700 mb-4">3. Protótipos Não Funcionais (Interativos)</h3>
+                <p class="mb-6">Abaixo está uma simulação interativa das principais telas do sistema. Nenhuma informação é salva; o objetivo é apenas demonstrar o fluxo de navegação e a interface.</p>
+                
+                <!-- Estrutura do "Celular" para o protótipo -->
+                <div class="w-full max-w-lg mx-auto bg-gray-900 rounded-xl shadow-xl p-4 border-8 border-gray-700">
+                    <div id="prototype-screen-container" class="bg-gray-50 h-[600px] overflow-y-auto rounded-lg relative">
+                        
+                        <!-- Tela 1: Login -->
+                        <div id="screen-login" class="prototype-screen p-6 h-full flex flex-col justify-center">
+                            <h4 class="text-2xl font-bold text-blue-700 text-center mb-8">Agenda Acadêmica TI</h4>
+                            <div class="space-y-4">
+                                <div>
+                                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                                    <input type="email" id="email" class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm" value="aluno@email.com">
+                                </div>
+                                <div>
+                                    <label for="senha" class="block text-sm font-medium text-gray-700">Senha</label>
+                                    <input type="password" id="senha" class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm" value="••••••••">
+                                </div>
+                                <button onclick="showScreen('screen-dashboard')" class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-blue-700 transition shadow-md">
+                                    Entrar
+                                </button>
+                                <p class="text-center text-sm text-gray-600">Não tem conta? <a href="#" class="text-blue-600">Cadastre-se</a></p>
+                            </div>
+                        </div>
+
+                        <!-- Tela 2: Dashboard (Principal) -->
+                        <div id="screen-dashboard" class="prototype-screen p-6" style="display: none;">
+                            <h4 class="text-xl font-bold text-gray-900 mb-6">Meu Dashboard</h4>
+                            
+                            <h5 class="font-semibold text-gray-700 mb-3">Próximas Entregas</h5>
+                            <div class="space-y-3">
+                                <!-- Atividade 1 -->
+                                <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+                                    <div class="flex justify-between items-center">
+                                        <h6 class="font-medium">Trabalho de Eng. de Software</h6>
+                                        <span class="text-sm font-medium text-red-600 bg-red-100 px-2 py-0.5 rounded-full">Amanhã</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600 mt-1">Engenharia de Software</p>
+                                </div>
+                                <!-- Atividade 2 -->
+                                <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+                                    <div class="flex justify-between items-center">
+                                        <h6 class="font-medium">Prova 1 de Algoritmos</h6>
+                                        <span class="text-sm font-medium text-yellow-600 bg-yellow-100 px-2 py-0.5 rounded-full">Em 3 dias</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600 mt-1">Algoritmos e Lógica</p>
+                                </div>
+                            </div>
+
+                            <h5 class="font-semibold text-gray-700 mt-8 mb-3">Minhas Disciplinas</h5>
+                            <div class="space-y-3">
+                                <div onclick="showScreen('screen-disciplina')" class="bg-white p-4 rounded-lg shadow-sm border border-gray-200 cursor-pointer hover:bg-gray-50">
+                                    <h6 class="font-medium text-blue-700">Engenharia de Software</h6>
+                                    <p class="text-sm text-gray-600 mt-1">Prof. Ricardo</p>
+                                </div>
+                                <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+                                    <h6 class="font-medium text-blue-700">Algoritmos e Lógica</h6>
+                                    <p class="text-sm text-gray-600 mt-1">Profa. Ana</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Botão flutuante para adicionar -->
+                            <button onclick="showScreen('screen-add-atividade')" class="absolute bottom-6 right-6 bg-blue-600 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg text-3xl font-light hover:bg-blue-700 transition">
+                                +
+                            </button>
+                        </div>
+
+                        <!-- Tela 3: Adicionar Atividade -->
+                        <div id="screen-add-atividade" class="prototype-screen p-6" style="display: none;">
+                            <div class="flex justify-between items-center mb-6">
+                                <h4 class="text-xl font-bold text-gray-900">Nova Atividade</h4>
+                                <button onclick="showScreen('screen-dashboard')" class="text-gray-500 hover:text-gray-800 text-2xl">&times;</button>
+                            </div>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Disciplina</label>
+                                    <select class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm">
+                                        <option>Engenharia de Software</option>
+                                        <option>Algoritmos e Lógica</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Nome da Atividade</label>
+                                    <input type="text" class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm" placeholder="Ex: Prova 1">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Data de Entrega</label>
+                                    <input type="date" class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Prioridade</label>
+                                    <select class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm">
+                                        <option>Alta</option>
+                                        <option>Média</option>
+                                        <option>Baixa</option>
+                                    </select>
+                                </div>
+                                <button onclick="showScreen('screen-dashboard')" class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-blue-700 transition shadow-md">
+                                    Salvar Atividade
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Tela 4: Detalhes da Disciplina (Diferencial) -->
+                        <div id="screen-disciplina" class="prototype-screen p-6" style="display: none;">
+                            <div class="flex items-center mb-6">
+                                <button onclick="showScreen('screen-dashboard')" class="text-blue-600 hover:text-blue-800 text-2xl mr-3">&larr;</button>
+                                <h4 class="text-xl font-bold text-gray-900">Eng. de Software</h4>
+                            </div>
+                            
+                            <h5 class="font-semibold text-gray-700 mb-3">Atividades da Disciplina</h5>
+                            <div class="space-y-3">
+                                <div class="bg-white p-3 rounded-lg shadow-sm border border-gray-200 flex justify-between items-center">
+                                    <div>
+                                        <h6 class="font-medium line-through text-gray-500">Trabalho 1 (Entregue)</h6>
+                                        <p class="text-sm text-gray-500">Nota: 8.5</p>
+                                    </div>
+                                    <input type="checkbox" checked class="form-checkbox h-5 w-5 text-blue-600 rounded">
+                                </div>
+                                <div class="bg-white p-3 rounded-lg shadow-sm border border-gray-200 flex justify-between items-center">
+                                    <div>
+                                        <h6 class="font-medium text-red-600">Trabalho 2 (Amanhã)</h6>
+                                        <p class="text-sm text-gray-600">Peso: 40%</p>
+                                    </div>
+                                    <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded">
+                                </div>
+                            </div>
+
+                            <h5 class="font-semibold text-gray-700 mt-8 mb-3">Calculadora de Média</h5>
+                            <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200 space-y-4">
+                                <!-- Pesos (definidos pelo usuário) -->
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Peso Trabalho 1 (Nota: 8.5)</label>
+                                    <input type="number" id="peso1" class="mt-1 block w-full p-2 border border-gray-300 rounded-lg" value="30">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Peso Trabalho 2 (Nota: ?)</label>
+                                    <input type="number" id="peso2" class="mt-1 block w-full p-2 border border-gray-300 rounded-lg" value="30">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Peso Prova Final (Nota: ?)</label>
+                                    <input type="number" id="peso3" class="mt-1 block w-full p-2 border border-gray-300 rounded-lg" value="40">
+                                </div>
+                                
+                                <!-- Simulação de cálculo -->
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Nota Trabalho 2 (Simulação)</label>
+                                    <input type="number" id="nota2" class="mt-1 block w-full p-2 border border-gray-300 rounded-lg" placeholder="Simule sua nota">
+                                </div>
+
+                                <button onclick="calcularMedia()" class="w-full bg-green-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-green-700 transition">
+                                    Calcular Média Parcial
+                                </button>
+                                <div id="resultado-media" class="text-center font-bold text-lg text-blue-700 mt-4"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seção 4: Modelagem de Dados -->
+            <section id="modelagem" class="content-section bg-white p-6 rounded-b-lg rounded-tr-lg shadow-md">
+                <h3 class="text-2xl font-bold text-blue-700 mb-4">4. Modelagem de Dados</h3>
+                <p class="mb-6">Para um sistema de 1º semestre, focamos em um modelo simples para armazenar os dados essenciais.</p>
+
+                <h4 class="text-xl font-semibold text-gray-700 mt-6 mb-3">4.1. Modelo Entidade-Relacionamento (MER)</h4>
+                <p class="mb-4">O MER descreve as "coisas" (entidades) que o sistema armazena e como elas se relacionam. Abaixo uma representação visual simplificada usando HTML/CSS.</p>
+                
+                <!-- Diagrama MER simplificado com HTML/CSS -->
+                <div class="flex flex-col sm:flex-row justify-around items-center space-y-4 sm:space-y-0 sm:space-x-4 p-6 bg-gray-50 rounded-lg border border-gray-200 font-mono text-sm">
+                    <!-- Entidade ALUNO -->
+                    <div class="border-2 border-blue-600 bg-white p-4 rounded-lg shadow w-48 text-center">
+                        <strong class="block text-blue-700">ALUNO</strong>
+                        <hr class="my-2">
+                        <u>id_aluno (PK)</u><br>
+                        nome<br>
+                        email<br>
+                        senha
+                    </div>
+                    
+                    <!-- Relacionamento -->
+                    <div class="flex flex-col items-center">
+                        <div class="w-0.5 sm:w-20 h-10 sm:h-0.5 bg-gray-400"></div>
+                        <div class="border border-gray-400 p-2 rounded-md -mt-5 -mb-5 sm:-mt-0 sm:-ml-5 sm:-mr-5 z-10 bg-gray-50">
+                            (1,N) <span class="text-blue-600 font-semibold mx-1">cadastra</span> (1,1)
+                        </div>
+                        <div class="w-0.5 sm:w-20 h-10 sm:h-0.5 bg-gray-400"></div>
+                    </div>
+
+                    <!-- Entidade DISCIPLINA -->
+                    <div class="border-2 border-blue-600 bg-white p-4 rounded-lg shadow w-48 text-center">
+                        <strong class="block text-blue-700">DISCIPLINA</strong>
+                        <hr class="my-2">
+                        <u>id_disciplina (PK)</u><br>
+                        id_aluno (FK)<br>
+                        nome_disciplina<br>
+                        professor
+                    </div>
+                    
+                    <!-- Relacionamento -->
+                    <div class="flex flex-col items-center">
+                        <div class="w-0.5 sm:w-20 h-10 sm:h-0.5 bg-gray-400"></div>
+                        <div class="border border-gray-400 p-2 rounded-md -mt-5 -mb-5 sm:-mt-0 sm:-ml-5 sm:-mr-5 z-10 bg-gray-50">
+                            (1,N) <span class="text-blue-600 font-semibold mx-1">contém</span> (1,1)
+                        </div>
+                        <div class="w-0.5 sm:w-20 h-10 sm:h-0.5 bg-gray-400"></div>
+                    </div>
+
+                    <!-- Entidade ATIVIDADE -->
+                    <div class="border-2 border-blue-600 bg-white p-4 rounded-lg shadow w-48 text-center">
+                        <strong class="block text-blue-700">ATIVIDADE</strong>
+                        <hr class="my-2">
+                        <u>id_atividade (PK)</u><br>
+                        id_disciplina (FK)<br>
+                        nome_atividade<br>
+                        data_entrega<br>
+                        prioridade<br>
+                        status<br>
+                        peso<br>
+                        nota
+                    </div>
+                </div>
+
+                <h4 class="text-xl font-semibold text-gray-700 mt-8 mb-3">4.2. Modelo Lógico (Esquema de Tabelas)</h4>
+                <p class="mb-4">O Modelo Lógico traduz o MER para a estrutura de tabelas de um banco de dados relacional.</p>
+                
+                <div class="space-y-6">
+                    <!-- Tabela ALUNO -->
+                    <div class="overflow-x-auto">
+                        <p class="font-semibold mb-2">Tabela: <code class="text-blue-700 bg-blue-50 px-2 py-1 rounded">ALUNO</code></p>
+                        <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow-sm">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="p-3 border-b text-left text-sm font-semibold text-gray-600">Coluna</th>
+                                    <th class="p-3 border-b text-left text-sm font-semibold text-gray-600">Tipo de Dado</th>
+                                    <th class="p-3 border-b text-left text-sm font-semibold text-gray-600">Chave / Observação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="p-3 border-b border-gray-200"><strong>id_aluno</strong></td>
+                                    <td class="p-3 border-b border-gray-200">INTEGER</td>
+                                    <td class="p-3 border-b border-gray-200">PK (Chave Primária)</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 border-b border-gray-200">nome</td>
+                                    <td class="p-3 border-b border-gray-200">VARCHAR(100)</td>
+                                    <td class="p-3 border-b border-gray-200"></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 border-b border-gray-200">email</td>
+                                    <td class="p-3 border-b border-gray-200">VARCHAR(100)</td>
+                                    <td class="p-3 border-b border-gray-200">Único</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 border-b border-gray-200">senha</td>
+                                    <td class="p-3 border-b border-gray-200">VARCHAR(255)</td>
+                                    <td class="p-3 border-b border-gray-200">(Armazenar hash)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Tabela DISCIPLINA -->
+                    <div class="overflow-x-auto">
+                        <p class="font-semibold mb-2">Tabela: <code class="text-blue-700 bg-blue-50 px-2 py-1 rounded">DISCIPLINA</code></p>
+                        <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow-sm">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="p-3 border-b text-left text-sm font-semibold text-gray-600">Coluna</th>
+                                    <th class="p-3 border-b text-left text-sm font-semibold text-gray-600">Tipo de Dado</th>
+                                    <th class="p-3 border-b text-left text-sm font-semibold text-gray-600">Chave / Observação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="p-3 border-b border-gray-200"><strong>id_disciplina</strong></td>
+                                    <td class="p-3 border-b border-gray-200">INTEGER</td>
+                                    <td class="p-3 border-b border-gray-200">PK (Chave Primária)</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 border-b border-gray-200"><strong>id_aluno</strong></td>
+                                    <td class="p-3 border-b border-gray-200">INTEGER</td>
+                                    <td class="p-3 border-b border-gray-200">FK (Chave Estrangeira de ALUNO)</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 border-b border-gray-200">nome_disciplina</td>
+                                    <td class="p-3 border-b border-gray-200">VARCHAR(100)</td>
+                                    <td class="p-3 border-b border-gray-200"></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 border-b border-gray-200">professor</td>
+                                    <td class="p-3 border-b border-gray-200">VARCHAR(100)</td>
+                                    <td class="p-3 border-b border-gray-200"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Tabela ATIVIDADE -->
+                    <div class="overflow-x-auto">
+                        <p class="font-semibold mb-2">Tabela: <code class="text-blue-700 bg-blue-50 px-2 py-1 rounded">ATIVIDADE</code></p>
+                        <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow-sm">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="p-3 border-b text-left text-sm font-semibold text-gray-600">Coluna</th>
+                                    <th class="p-3 border-b text-left text-sm font-semibold text-gray-600">Tipo de Dado</th>
+                                    <th class="p-3 border-b text-left text-sm font-semibold text-gray-600">Chave / Observação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="p-3 border-b border-gray-200"><strong>id_atividade</strong></td>
+                                    <td class="p-3 border-b border-gray-200">INTEGER</td>
+                                    <td class="p-3 border-b border-gray-200">PK (Chave Primária)</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 border-b border-gray-200"><strong>id_disciplina</strong></td>
+                                    <td class="p-3 border-b border-gray-200">INTEGER</td>
+                                    <td class="p-3 border-b border-gray-200">FK (Chave Estrangeira de DISCIPLINA)</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 border-b border-gray-200">nome_atividade</td>
+                                    <td class="p-3 border-b border-gray-200">VARCHAR(100)</td>
+                                    <td class="p-3 border-b border-gray-200"></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 border-b border-gray-200">data_entrega</td>
+                                    <td class="p-3 border-b border-gray-200">DATE</td>
+                                    <td class="p-3 border-b border-gray-200"></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 border-b border-gray-200">prioridade</td>
+                                    <td class="p-3 border-b border-gray-200">VARCHAR(10)</td>
+                                    <td class="p-3 border-b border-gray-200">('Baixa', 'Média', 'Alta')</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 border-b border-gray-200">status</td>
+                                    <td class="p-3 border-b border-gray-200">VARCHAR(10)</td>
+                                    <td class="p-3 border-b border-gray-200">('Pendente', 'Concluída')</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 border-b border-gray-200">peso</td>
+                                    <td class="p-3 border-b border-gray-200">DECIMAL(5,2)</td>
+                                    <td class="p-3 border-b border-gray-200">Ex: 30.00 (para 30%)</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 border-b border-gray-200">nota</td>
+                                    <td class="p-3 border-b border-gray-200">DECIMAL(4,2)</td>
+                                    <td class="p-3 border-b border-gray-200">Ex: 8.50</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </section>
+            
+            <!-- Seção 5: Referências -->
+            <section id="referencias" class="content-section bg-white p-6 rounded-b-lg rounded-tr-lg shadow-md">
+                <h3 class="text-2xl font-bold text-blue-700 mb-4">5. Referências Bibliográficas</h3>
+                <p class="mb-4">Para um projeto de 1º semestre, a base teórica é fundamental. As referências abaixo são clássicos da área de Engenharia de Software e Banco de Dados:</p>
+                
+                <ul class="space-y-4">
+                    <li class="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                        <p class="font-semibold text-gray-800">PRESSMAN, Roger S. <strong>Engenharia de Software: Uma Abordagem Profissional.</strong> 8ª ed. Porto Alegre: AMGH, 2016.</p>
+                        <p class="text-sm text-gray-600 mt-1"><em>(Referência principal para requisitos funcionais, não funcionais e processos de software.)</em></p>
+                    </li>
+                    <li class="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                        <p class="font-semibold text-gray-800">SOMMERVILLE, Ian. <strong>Engenharia de Software.</strong> 10ª ed. São Paulo: Pearson Education, 2019.</p>
+                        <p class="text-sm text-gray-600 mt-1"><em>(Excelente para entender os diferentes tipos de requisitos e a importância da especificação.)</em></p>
+                    </li>
+                    <li class="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                        <p class="font-semibold text-gray-800">ELMASRI, R.; NAVATHE, S. B. <strong>Sistemas de Banco de Dados.</strong> 6ª ed. São Paulo: Pearson Education, 2011.</p>
+                        <p class="text-sm text-gray-600 mt-1"><em>(Referência clássica para aprender sobre Modelo Entidade-Relacionamento e Modelo Lógico/Relacional.)</em></p>
+                    </li>
+                </ul>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // --- Controle da Navegação por Abas ---
+        const sections = document.querySelectorAll('.content-section');
+        const tabButtons = document.querySelectorAll('.tab-button');
+
+        function showSection(sectionId) {
+            // Esconde todas as seções
+            sections.forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Remove a classe 'active' de todas as abas
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Mostra a seção clicada
+            const activeSection = document.getElementById(sectionId);
+            if (activeSection) {
+                activeSection.style.display = 'block';
+            }
+
+            // Adiciona a classe 'active' na aba clicada
+            // É preciso buscar pelo atributo onclick, pois a classe é manipulada
+            const activeButton = document.querySelector(`.tab-button[onclick="showSection('${sectionId}')"]`);
+            if (activeButton) {
+                activeButton.classList.add('active');
+            }
+        }
+
+        // --- Controle do Protótipo Interativo ---
+        const prototypeScreens = document.querySelectorAll('.prototype-screen');
+
+        function showScreen(screenId) {
+            // Esconde todas as telas do protótipo
+            prototypeScreens.forEach(screen => {
+                screen.style.display = 'none';
+            });
+
+            // Mostra a tela alvo
+            const activeScreen = document.getElementById(screenId);
+            if (activeScreen) {
+                activeScreen.style.display = 'block';
+            }
+        }
+
+        // --- Lógica do Diferencial: Calculadora de Média ---
+        function calcularMedia() {
+            // Nota já obtida
+            const nota1 = 8.5;
+            const peso1 = parseFloat(document.getElementById('peso1').value) || 0;
+            
+            // Nota simulada
+            const nota2 = parseFloat(document.getElementById('nota2').value) || 0;
+            const peso2 = parseFloat(document.getElementById('peso2').value) || 0;
+
+            // Nota da prova final (ainda não feita)
+            const peso3 = parseFloat(document.getElementById('peso3').value) || 0;
+            
+            let mediaParcial = 0;
+            let pesosLancados = 0;
+            
+            if (nota1 && peso1) {
+                mediaParcial += (nota1 * (peso1 / 100));
+                pesosLancados += (peso1 / 100);
+            }
+            if (nota2 && peso2) {
+                mediaParcial += (nota2 * (peso2 / 100));
+                pesosLancados += (peso2 / 100);
+            }
+
+            let mediaFinalEstimada = mediaParcial;
+            
+            // A média é calculada sobre o total de pesos lançados
+            let mediaExibida = 0;
+            if (pesosLancados > 0) {
+                 // Média ponderada com base no que foi lançado
+                 // Ex: (8.5 * 0.3) + (7.0 * 0.3) = 2.55 + 2.1 = 4.65
+                 // A média parcial seria 4.65 / 0.6 = 7.75
+                 mediaExibida = mediaParcial / pesosLancados;
+            }
+
+            const resultadoDiv = document.getElementById('resultado-media');
+            if (isNaN(mediaExibida)) {
+                resultadoDiv.textContent = "Por favor, insira valores válidos.";
+            } else {
+                resultadoDiv.textContent = `Sua média parcial (com base nas notas e pesos lançados) é: ${mediaExibida.toFixed(2)}`;
+            }
+        }
+
+        // Inicializa a primeira aba
+        document.addEventListener('DOMContentLoaded', () => {
+            showSection('introducao');
+        });
+    </script>
+
+</body>
+</html>
